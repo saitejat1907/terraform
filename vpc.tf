@@ -31,9 +31,6 @@ resource "azurerm_subnet" "tf-public-subnet" {
   virtual_network_name = azurerm_virtual_network.tf-vnet.name
   address_prefixes     = ["10.0.1.0/24"]
 
-  tags = {
-    Name = "tf-web-subnet"
-  }
 }
 
 # Private Subnet
@@ -43,9 +40,9 @@ resource "azurerm_subnet" "tf-private-subnet" {
   virtual_network_name = azurerm_virtual_network.tf-vnet.name
   address_prefixes     = ["10.0.2.0/24"]
 
-  tags = {
-    Name = "tf-database-subnet"
-  }
+  # tags = {
+  #   Name = "tf-database-subnet"
+  # }
 }
 
 # Public IP
@@ -67,11 +64,12 @@ resource "azurerm_nat_gateway" "tf-nat-gateway" {
   resource_group_name = azurerm_resource_group.example.name
   sku_name            = "Standard"
 
-  public_ip_address_ids = [azurerm_public_ip.tf-public-ip.id]
+  public_ip_address_id = [azurerm_public_ip.tf-public-ip.id]
 
-  tags = {
+    tags = {
     Name = "tf-nat-gateway"
   }
+
 }
 
 resource "azurerm_subnet_nat_gateway_association" "tf-nat-gateway-association" {
