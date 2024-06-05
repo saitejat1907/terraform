@@ -1,7 +1,3 @@
-# Provider configuration for Azure
-provider "azurerm" {
-  features {}
-}
 
 # Resource Group
 resource "azurerm_resource_group" "example" {
