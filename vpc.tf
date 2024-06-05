@@ -64,7 +64,7 @@ resource "azurerm_nat_gateway" "tf-nat-gateway" {
   resource_group_name = azurerm_resource_group.example.name
   sku_name            = "Standard"
 
-  public_ip_address_id = [azurerm_public_ip.tf-public-ip.id]
+  public_ip_address_id = azurerm_public_ip.tf-public-ip.id
 
     tags = {
     Name = "tf-nat-gateway"
