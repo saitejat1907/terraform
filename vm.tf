@@ -32,12 +32,9 @@ resource "azurerm_linux_virtual_machine" "tf-public-vm" {
   location            = azurerm_resource_group.example.location
   size                = "Standard_B1s"
   admin_username      = "adminuser"
+  admin_password      = "S@i1234!"  # Specify the admin password here
+  disable_password_authentication = false  # Enable password authentication
   network_interface_ids = [azurerm_network_interface.tf-public-nic.id]
-
-  admin_ssh_key {
-    username   = "adminuser"
-    public_key = file("~/.ssh/id_rsa.pub")
-  }
 
   os_disk {
     caching              = "ReadWrite"
@@ -47,7 +44,7 @@ resource "azurerm_linux_virtual_machine" "tf-public-vm" {
   source_image_reference {
     publisher = "Canonical"
     offer     = "UbuntuServer"
-    sku       = "18.04-LTS"
+    sku       = "20_04-lts"  # Use Ubuntu 20.04
     version   = "latest"
   }
 
@@ -63,12 +60,9 @@ resource "azurerm_linux_virtual_machine" "tf-private-vm" {
   location            = azurerm_resource_group.example.location
   size                = "Standard_B1s"
   admin_username      = "adminuser"
+  admin_password      = "S@i1234!"  
+  disable_password_authentication = false  # Enable password authentication
   network_interface_ids = [azurerm_network_interface.tf-private-nic.id]
-
-  admin_ssh_key {
-    username   = "adminuser"
-    public_key = file("~/.ssh/id_rsa.pub")
-  }
 
   os_disk {
     caching              = "ReadWrite"
@@ -78,7 +72,7 @@ resource "azurerm_linux_virtual_machine" "tf-private-vm" {
   source_image_reference {
     publisher = "Canonical"
     offer     = "UbuntuServer"
-    sku       = "18.04-LTS"
+    sku       = "20_04-lts"  # Use Ubuntu 20.04
     version   = "latest"
   }
 
