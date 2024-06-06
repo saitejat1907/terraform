@@ -32,7 +32,7 @@ resource "azurerm_linux_virtual_machine" "tf-public-vm" {
   location            = azurerm_resource_group.example.location
   size                = "Standard_B1s"
   admin_username      = "adminuser"
-  admin_password      = "S@i1234!"  # Specify the admin password here
+  admin_password      = "S@i1234!"  
   disable_password_authentication = false  # Enable password authentication
   network_interface_ids = [azurerm_network_interface.tf-public-nic.id]
 
