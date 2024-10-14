@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community Management with AI</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        .tabcontent {
+            display: none;
+            padding: 16px;
+            border: 1px solid #ccc;
+            border-top: none;
+            margin-top: 20px;
+        }
+
+        .tab button.active {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .poll {
+            margin-top: 20px;
+        }
+
+        table {
+            width: 100%;
+        }
+
+        th {
+            background-color: #007bff;
+            color: white;
+            text-align: left;
+            padding: 12px;
+        }
+
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .ai-button {
+            margin-top: 20px;
+        }
+
+        .highlight {
+            background-color: #ffcccb;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container mt-5">
+    <h2 class="text-center">Community Management System with AI Assistance</h2>
+
+    <div class="tab">
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link active" onclick="openTab(event, 'Members')" id="defaultOpen">Community Members</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" onclick="openTab(event, 'TasksPoll')">Tasks and Poll</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" onclick="openTab(event, 'ContactMembers')">Members to Contact</a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Community Members Tab -->
+    <div id="Members" class="tabcontent">
+        <h3>Community Members</h3>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Personal Info</th>
+                    <th>Demographic Info</th>
+                    <th>Socioeconomic Info</th>
+                    <th>Health Info</th>
+                    <th>Contact Preference</th>
+                </tr>
+            </thead>
+            <tbody id="memberTable">
+                <tr>
+                    <td>John Doe, Age: 34, Male</td>
+                    <td>Ethnicity: Hispanic, Family: 3 members</td>
+                    <td>Unemployed, Income: Low</td>
+                    <td>Asthma</td>
+                    <td>Email</td>
+                </tr>
+                <tr>
+                    <td>Jane Smith, Age: 45, Female</td>
+                    <td>Ethnicity: African American, Family: 2 members</td>
+                    <td>Employed, Income: Medium</td>
+                    <td>Diabetes</td>
+                    <td>Phone</td>
+                </tr>
+                <tr>
+                    <td>Emily White, Age: 29, Female</td>
+                    <td>Ethnicity: Caucasian, Family: 1 member</td>
+                    <td>Unemployed, Income: Low</td>
+                    <td>No health issues</td>
+                    <td>Email</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <button class="btn btn-primary ai-button" onclick="runAI()">AI: Highlight Members in Need</button>
+    </div>
+
+    <!-- Tasks and Poll Tab -->
+    <div id="TasksPoll" class="tabcontent">
+        <h3>Tasks</h3>
+        <ul class="list-group">
+            <li class="list-group-item">Distribute food packages to 50 households</li>
+            <li class="list-group-item">Organize health check-up camp</li>
+            <li class="list-group-item">Prepare weekly report on resource distribution</li>
+        </ul>
+
+        <div class="poll mt-4">
+            <h4>Poll: What service should we prioritize next month?</h4>
+            <form>
+                <div class="form-check">
+                    <input type="radio" class="form-check-input" name="poll" value="jobs" id="jobs">
+                    <label class="form-check-label" for="jobs">Job Training</label>
+                </div>
+                <div class="form-check">
+                    <input type="radio" class="form-check-input" name="poll" value="healthcare" id="healthcare">
+                    <label class="form-check-label" for="healthcare">Healthcare Services</label>
+                </div>
+                <div class="form-check">
+                    <input type="radio" class="form-check-input" name="poll" value="housing" id="housing">
+                    <label class="form-check-label" for="housing">Affordable Housing</label>
+                </div>
+                <div class="form-check">
+                    <input type="radio" class="form-check-input" name="poll" value="food" id="food">
+                    <label class="form-check-label" for="food">Food Assistance</label>
+                </div>
+                <button type="submit" class="btn btn-success mt-3">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Members to Contact Tab -->
+    <div id="ContactMembers" class="tabcontent">
+        <h3>Members to Contact</h3>
+        <ul class="list-group">
+            <li class="list-group-item">John Doe (Needs assistance with housing)</li>
+            <li class="list-group-item">Emily White (Requesting food support)</li>
+            <li class="list-group-item">Michael Johnson (Waiting for job placement)</li>
+        </ul>
+    </div>
+</div>
+
+<!-- JavaScript for Tabs and AI -->
+<script>
+    function openTab(evt, tabName) {
+        // Hide all tabcontent elements
+        var i, tabcontent;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+
+        // Remove the active class from all tabs
+        var tablinks = document.getElementsByClassName("nav-link");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].classList.remove("active");
+        }
+
+        // Show the clicked tab and add active class
+        document.getElementById(tabName).style.display = "block";
+        evt.currentTarget.classList.add("active");
+    }
+
+    // AI simulation: Highlight members in need
+    function runAI() {
+        const rows = document.getElementById('memberTable').getElementsByTagName('tr');
+        for (let i = 0; i < rows.length; i++) {
+            const socioInfo = rows[i].getElementsByTagName('td')[2].textContent;
+            const healthInfo = rows[i].getElementsByTagName('td')[3].textContent;
+
+            // Simple AI logic: highlight rows with low income or serious health issues
+            if (socioInfo.includes('Low') || healthInfo.includes('Asthma') || healthInfo.includes('Diabetes')) {
+                rows[i].classList.add('highlight');
+            }
+        }
+    }
+
+    // Open the default tab on page load
+    document.getElementById("defaultOpen").click();
+</script>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
